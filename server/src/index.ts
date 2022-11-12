@@ -1,8 +1,8 @@
 import Fastify from 'fastify';
 
 import jwtAuth from './helpers/auth';
+import appSchemas from './schemas';
 import { appRoutes } from './routes';
-import { userSchemas } from './schemas/user.schema';
 
 const server = Fastify();
 
@@ -14,9 +14,7 @@ async function main() {
 
     server.register(jwtAuth);
 
-    for (const schema of [...userSchemas]) {
-      server.addSchema(schema);
-    }
+    server.register(appSchemas);
 
     server.register(appRoutes, { prefix: 'api/v1' });
 
