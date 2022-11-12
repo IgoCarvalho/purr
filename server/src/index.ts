@@ -1,4 +1,6 @@
 import Fastify from 'fastify';
+
+import jwtAuth from './helpers/auth';
 import { appRoutes } from './routes';
 import { userSchemas } from './schemas/user.schema';
 
@@ -9,6 +11,8 @@ async function main() {
     server.get('/', () => {
       return { message: 'Hello World!' };
     });
+
+    server.register(jwtAuth);
 
     for (const schema of [...userSchemas]) {
       server.addSchema(schema);

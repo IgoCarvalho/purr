@@ -1,9 +1,9 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { StatusCodes } from 'http-status-codes';
 import * as appErrors from '../helpers/errors';
-import { hashPassword } from '../lib/hash';
+import { checkPassword, hashPassword } from '../lib/hash';
 import prisma from '../lib/prisma';
-import { CreateUserSchema } from '../schemas/user.schema';
+import { CreateUserSchema, LoginUserSchema } from '../schemas/user.schema';
 
 export async function createUser(
   req: FastifyRequest<{
@@ -35,7 +35,41 @@ export async function createUser(
 
     return reply.code(StatusCodes.CREATED).send(createdUser);
   } catch (e) {
-    console.log(typeof e);
+    console.error(e);
+    return reply.code(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
+  }
+}
+
+export async function login(
+  req: FastifyRequest<{
+    Body: LoginUserSchema;
+  }>,
+  reply: FastifyReply
+) {
+  try {
+    const { email, password } = req.body;
+
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+      return reply
+        .code(StatusCodes.NOT_FOUND)
+        .send(appErrors.UserInvalidCredentials);
+    }
+
+    const passwordMatches = await checkPassword(password, user.password);
+
+    if (!passwordMatches) {
+      return reply
+        .code(StatusCodes.NOT_FOUND)
+        .send(appErrors.UserInvalidCredentials);
+    }
+
+    const token = await reply.jwtSign({ id: user.id });
+
+    return { user, token };
+  } catch (e) {
+    console.error(e);
     return reply.code(StatusCodes.INTERNAL_SERVER_ERROR).send(e);
   }
 }
