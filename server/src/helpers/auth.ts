@@ -2,9 +2,11 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import fjwt from '@fastify/jwt';
 import fp from 'fastify-plugin';
 
+import { env } from '../config/env';
+
 async function jwtAuth(server: FastifyInstance) {
   server.register(fjwt, {
-    secret: process.env.JWT_SECRET!,
+    secret: env.JWT_SECRET,
     sign: { expiresIn: '7d' },
   });
 

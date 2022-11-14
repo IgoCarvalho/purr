@@ -5,12 +5,12 @@ import fp from 'fastify-plugin';
 import { existsSync, mkdirSync } from 'fs';
 import path from 'path';
 
+import { env } from '../config/env';
+
 import { CloudinaryStorageEngine } from '../lib/cloudinary';
 
 const diskStorage = fastifyMulter.diskStorage({
   async destination(req, file, cb) {
-    console.log('DISK', req.body);
-
     const storagePath = path.resolve('uploads');
 
     if (!existsSync(storagePath)) {
@@ -27,13 +27,13 @@ const diskStorage = fastifyMulter.diskStorage({
 });
 
 const cloudinaryStorage = new CloudinaryStorageEngine({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: env.CLOUDINARY_CLOUD_NAME,
+  api_key: env.CLOUDINARY_API_KEY,
+  api_secret: env.CLOUDINARY_API_SECRET,
 });
 
 function getStorage() {
-  if (process.env.NODE_ENV === 'production') {
+  if (env.isProduction) {
     return cloudinaryStorage;
   }
 
