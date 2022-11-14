@@ -16,4 +16,23 @@ export async function postRoutes(server: FastifyInstance) {
     preHandler: [server.authenticate],
     handler: postController.createPost,
   });
+
+  server.route({
+    method: 'GET',
+    url: '/',
+    schema: {
+      querystring: $postSchemasRef('ListPostsQuerySchema'),
+    },
+    preHandler: [server.authenticate],
+    handler: postController.listPosts,
+  });
+
+  server.route({
+    method: 'GET',
+    url: '/public',
+    schema: {
+      querystring: $postSchemasRef('ListPostsQuerySchema'),
+    },
+    handler: postController.listPosts,
+  });
 }
