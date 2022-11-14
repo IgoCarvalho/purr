@@ -12,7 +12,7 @@ const server = Fastify({ logger: true });
 async function main() {
   try {
     server.get('/', () => {
-      return { message: 'Hello World!' };
+      return { message: 'Hello World!', isProduction: env.isProduction };
     });
 
     server.register(fileUpload);
