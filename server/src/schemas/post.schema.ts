@@ -22,11 +22,14 @@ const ListUniquePostParamsSchema = z.object({
   id: z.string(),
 });
 
+const DeletePostParamsSchema = ListUniquePostParamsSchema.extend({});
+
 export type CreatePostSchema = z.infer<typeof CreatePostSchema>;
 export type ListPostsQuerySchema = z.infer<typeof ListPostsQuerySchema>;
 export type ListUniquePostParamsSchema = z.infer<
   typeof ListUniquePostParamsSchema
 >;
+export type DeletePostParamsSchema = z.infer<typeof DeletePostParamsSchema>;
 
 export const { schemas: postSchemas, $ref: $postSchemasRef } = buildJsonSchemas(
   {
@@ -34,6 +37,7 @@ export const { schemas: postSchemas, $ref: $postSchemasRef } = buildJsonSchemas(
     CreatePostResponseSchema,
     ListPostsQuerySchema,
     ListUniquePostParamsSchema,
+    DeletePostParamsSchema,
   },
   { $id: 'post' }
 );

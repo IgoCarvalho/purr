@@ -1,10 +1,12 @@
 import { Prisma } from '@prisma/client';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { StatusCodes } from 'http-status-codes';
+import * as appErrors from '../helpers/errors';
 
 import prisma from '../lib/prisma';
 import {
   CreatePostSchema,
+  DeletePostParamsSchema,
   ListPostsQuerySchema,
   ListUniquePostParamsSchema,
 } from '../schemas/post.schema';
@@ -94,6 +96,34 @@ export async function listUniquePost(
     });
 
     return post;
+  } catch (err) {
+    console.error(err);
+    return reply.code(StatusCodes.INTERNAL_SERVER_ERROR).send(err);
+  }
+}
+
+export async function deletePost(
+  req: FastifyRequest<{
+    Params: DeletePostParamsSchema;
+  }>,
+  reply: FastifyReply
+) {
+  try {
+    const { id } = req.params;
+
+    const postToDelete = await prisma.post.findUnique({ where: { id } });
+
+    if (!postToDelete) {
+      return reply.code(StatusCodes.NOT_FOUND).send(appErrors.PostNotExists);
+    }
+
+    if (postToDelete.ownerId !== req.user.id) {
+      return reply.code(StatusCodes.FORBIDDEN).send(appErrors.IsNotPostOwner);
+    }
+
+    await prisma.post.delete({ where: { id } });
+
+    return { id };
   } catch (err) {
     console.error(err);
     return reply.code(StatusCodes.INTERNAL_SERVER_ERROR).send(err);

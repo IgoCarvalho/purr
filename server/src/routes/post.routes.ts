@@ -44,4 +44,14 @@ export async function postRoutes(server: FastifyInstance) {
     },
     handler: postController.listUniquePost,
   });
+
+  server.route({
+    method: 'DELETE',
+    url: '/:id',
+    schema: {
+      params: $postSchemasRef('DeletePostParamsSchema'),
+    },
+    preHandler: [server.authenticate],
+    handler: postController.deletePost,
+  });
 }
