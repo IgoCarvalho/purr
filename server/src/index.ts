@@ -23,7 +23,10 @@ async function main() {
 
     server.register(appRoutes, { prefix: 'api/v1' });
 
-    const address = await server.listen({ port: env.PORT });
+    const address = await server.listen({
+      port: env.PORT,
+      host: '0.0.0.0',
+    });
     console.log(`Server ready at ${address}`);
   } catch (e) {
     console.error(e);
