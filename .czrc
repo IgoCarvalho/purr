@@ -1,3 +1,8 @@
 {
-  "path": "cz-emoji"
+  "path": "cz-emoji",
+  "config": {
+    "cz-emoji": {
+      "scopes": ["server", "web"]
+    }
+  }
 }
