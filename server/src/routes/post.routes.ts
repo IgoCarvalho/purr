@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify';
 
 import * as postController from '../controllers/post.controller';
+import { multerUploader } from '../helpers/upload';
 import { $postSchemasRef } from '../schemas/post.schema';
 
 export async function postRoutes(server: FastifyInstance) {
@@ -13,7 +14,7 @@ export async function postRoutes(server: FastifyInstance) {
         201: $postSchemasRef('CreatePostResponseSchema'),
       },
     },
-    preHandler: [server.authenticate],
+    preValidation: [server.authenticate, multerUploader.array('files')],
     handler: postController.createPost,
   });
 

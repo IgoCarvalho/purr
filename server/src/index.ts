@@ -1,16 +1,19 @@
 import Fastify from 'fastify';
 
 import jwtAuth from './helpers/auth';
+import fileUpload from './helpers/upload';
 import appSchemas from './schemas';
 import { appRoutes } from './routes';
 
-const server = Fastify();
+const server = Fastify({ logger: true });
 
 async function main() {
   try {
     server.get('/', () => {
       return { message: 'Hello World!' };
     });
+
+    server.register(fileUpload);
 
     server.register(jwtAuth);
 

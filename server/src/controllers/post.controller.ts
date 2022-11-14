@@ -1,9 +1,10 @@
 import { Prisma } from '@prisma/client';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { StatusCodes } from 'http-status-codes';
-import * as appErrors from '../helpers/errors';
 
+import * as appErrors from '../helpers/errors';
 import prisma from '../lib/prisma';
+
 import {
   CreatePostSchema,
   DeletePostParamsSchema,
@@ -20,12 +21,26 @@ export async function createPost(
   try {
     const postData = req.body;
     const userData = req.user;
+    const imagesLinks = req.files.map((file) => String(file.path));
+
+    const createImagesPrismaQuery: Prisma.ImageCreateManyPostInput[] =
+      imagesLinks.map((link) => ({
+        url: link,
+        altText: '',
+      }));
 
     const newPost = await prisma.post.create({
       data: {
         ...postData,
         likes: 0,
-        ownerId: userData.id,
+        images: {
+          createMany: {
+            data: createImagesPrismaQuery,
+          },
+        },
+        owner: {
+          connect: { id: userData.id },
+        },
       },
       include: {
         images: true,

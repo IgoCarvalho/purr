@@ -1,6 +1,8 @@
 import z from 'zod';
 import { buildJsonSchemas } from 'fastify-zod';
 
+import { ImageSchema } from './image.schema';
+
 const CreatePostSchema = z.object({
   text: z.string(),
 });
@@ -9,7 +11,7 @@ const CreatePostResponseSchema = CreatePostSchema.extend({
   id: z.string(),
   likes: z.number(),
   createdAt: z.date(),
-  images: z.array(z.any()),
+  images: z.array(ImageSchema),
 });
 
 const ListPostsQuerySchema = z.object({
