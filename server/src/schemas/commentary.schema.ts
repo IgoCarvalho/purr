@@ -24,9 +24,16 @@ const ListPostCommentariesResponseSchema = z.array(
   PostCommentariesResponseSchema
 );
 
+const DeleteCommentaryParamsSchema = z.object({
+  commentaryId: z.string(),
+});
+
 export type CreateCommentarySchema = z.infer<typeof CreateCommentarySchema>;
 export type ListPostCommentariesParamsSchema = z.infer<
   typeof ListPostCommentariesParamsSchema
+>;
+export type DeleteCommentaryParamsSchema = z.infer<
+  typeof DeleteCommentaryParamsSchema
 >;
 
 export const { schemas: commentarySchemas, $ref: $commentarySchemasRef } =
@@ -35,6 +42,7 @@ export const { schemas: commentarySchemas, $ref: $commentarySchemasRef } =
       CreateCommentarySchema,
       ListPostCommentariesParamsSchema,
       ListPostCommentariesResponseSchema,
+      DeleteCommentaryParamsSchema,
     },
     { $id: 'comment' }
   );

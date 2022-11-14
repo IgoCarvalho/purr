@@ -7,3 +7,10 @@ export const PostNotExists = new Error(
 export const IsNotPostOwner = new Error(
   'Não foi possível concluir a operação, Post pertence a outro usuário!'
 );
+
+export const CommentaryNotExists = new Error(
+  'O comentário não foi encontrado em nosso banco de dados!'
+);
+export const IsNotCommentaryOwner = new Error(
+  'Não foi possível concluir a operação, Comentário pertence a outro usuário!'
+);

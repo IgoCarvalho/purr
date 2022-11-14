@@ -25,4 +25,14 @@ export async function commentaryRoutes(server: FastifyInstance) {
     },
     handler: commentaryController.listByPost,
   });
+
+  server.route({
+    method: 'DELETE',
+    url: '/:commentaryId',
+    schema: {
+      params: $commentarySchemasRef('DeleteCommentaryParamsSchema'),
+    },
+    preHandler: [server.authenticate],
+    handler: commentaryController.remove,
+  });
 }
