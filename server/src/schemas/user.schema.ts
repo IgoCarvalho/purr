@@ -10,7 +10,7 @@ const CreateUserSchema = UserBase.extend({
   password: z.string(),
 });
 
-const CreateUserResponseSchema = UserBase.extend({
+export const CreateUserResponseSchema = UserBase.extend({
   id: z.string(),
   avatarUrl: z.string().optional(),
 });

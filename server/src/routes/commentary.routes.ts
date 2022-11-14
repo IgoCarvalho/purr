@@ -13,4 +13,16 @@ export async function commentaryRoutes(server: FastifyInstance) {
     preHandler: [server.authenticate],
     handler: commentaryController.create,
   });
+
+  server.route({
+    method: 'GET',
+    url: '/post/:postId',
+    schema: {
+      params: $commentarySchemasRef('ListPostCommentariesParamsSchema'),
+      response: {
+        200: $commentarySchemasRef('ListPostCommentariesResponseSchema'),
+      },
+    },
+    handler: commentaryController.listByPost,
+  });
 }
