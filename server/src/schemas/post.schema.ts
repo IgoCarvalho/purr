@@ -18,14 +18,22 @@ const ListPostsQuerySchema = z.object({
   scope: z.enum(['owner', 'users']).default('users'),
 });
 
+const ListUniquePostParamsSchema = z.object({
+  id: z.string(),
+});
+
 export type CreatePostSchema = z.infer<typeof CreatePostSchema>;
 export type ListPostsQuerySchema = z.infer<typeof ListPostsQuerySchema>;
+export type ListUniquePostParamsSchema = z.infer<
+  typeof ListUniquePostParamsSchema
+>;
 
 export const { schemas: postSchemas, $ref: $postSchemasRef } = buildJsonSchemas(
   {
     CreatePostSchema,
     CreatePostResponseSchema,
     ListPostsQuerySchema,
+    ListUniquePostParamsSchema,
   },
   { $id: 'post' }
 );

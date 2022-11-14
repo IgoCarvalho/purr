@@ -3,7 +3,11 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { StatusCodes } from 'http-status-codes';
 
 import prisma from '../lib/prisma';
-import { CreatePostSchema, ListPostsQuerySchema } from '../schemas/post.schema';
+import {
+  CreatePostSchema,
+  ListPostsQuerySchema,
+  ListUniquePostParamsSchema,
+} from '../schemas/post.schema';
 
 export async function createPost(
   req: FastifyRequest<{
@@ -69,6 +73,27 @@ export async function listPosts(
     });
 
     return posts;
+  } catch (err) {
+    console.error(err);
+    return reply.code(StatusCodes.INTERNAL_SERVER_ERROR).send(err);
+  }
+}
+
+export async function listUniquePost(
+  req: FastifyRequest<{
+    Params: ListUniquePostParamsSchema;
+  }>,
+  reply: FastifyReply
+) {
+  try {
+    const { id } = req.params;
+
+    const post = await prisma.post.findUnique({
+      where: { id },
+      include: { images: true, comments: true },
+    });
+
+    return post;
   } catch (err) {
     console.error(err);
     return reply.code(StatusCodes.INTERNAL_SERVER_ERROR).send(err);

@@ -35,4 +35,13 @@ export async function postRoutes(server: FastifyInstance) {
     },
     handler: postController.listPosts,
   });
+
+  server.route({
+    method: 'GET',
+    url: '/:id',
+    schema: {
+      params: $postSchemasRef('ListUniquePostParamsSchema'),
+    },
+    handler: postController.listUniquePost,
+  });
 }
