@@ -27,7 +27,7 @@ const buttonSizeMap: Record<ButtonSizes, string> = {
 const buttonVariantsMap: Record<ButtonVariants, string> = {
   solid: 'bg-violet-500 hover:bg-violet-600',
   outline:
-    'bg-violet-500/10 hover:bg-violet-500/30 outline outline-2 outline-violet-500',
+    'bg-violet-500/10 hover:bg-violet-500/30 outline outline-1 outline-violet-500',
 };
 
 const buttonSizeClasses = computed(() => buttonSizeMap[props.size]);
