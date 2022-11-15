@@ -13,6 +13,7 @@ interface ButtonProps {
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   asLink: false,
+  to: '/',
   size: 'lg',
   variant: 'solid',
 });
@@ -34,9 +35,16 @@ const buttonVariantClasses = computed(() => buttonVariantsMap[props.variant]);
 </script>
 
 <template>
-  <a v-if="asLink" class="button link" :class="[buttonSizeClasses]" :href="to"
-    ><slot></slot
-  ></a>
+  <router-link
+    v-if="asLink"
+    class="button link"
+    :class="[buttonSizeClasses]"
+    :to="to"
+    active-class="active"
+  >
+    <slot></slot>
+  </router-link>
+
   <button
     v-else
     class="button"
@@ -53,5 +61,8 @@ const buttonVariantClasses = computed(() => buttonVariantsMap[props.variant]);
 
 .button.link {
   @apply bg-transparent hover:bg-white/10;
+}
+.button.active {
+  @apply bg-white/20;
 }
 </style>

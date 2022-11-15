@@ -5,8 +5,8 @@ import Button from './MyButton.vue';
 <template>
   <nav class="">
     <ul class="flex items-center gap-2">
-      <Button asLink size="sm" to="acojad"> Home </Button>
-      <Button asLink size="sm" to="acojad"> Posts </Button>
+      <Button asLink size="sm" to="/"> Home </Button>
+      <Button asLink size="sm" to="posts"> Posts </Button>
     </ul>
   </nav>
 </template>
