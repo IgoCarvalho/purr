@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-p {
-  color: rgb(100, 116, 139)
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

@@ -1,7 +1,22 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+
+const props = defineProps({
+  size: {
+    type: Number,
+    default: 100,
+  },
+});
+
+const height = computed(() => {
+  return props.size * 0.3;
+});
+</script>
+
 <template>
   <svg
-    width="101"
-    height="30"
+    :width="size"
+    :height="height"
     viewBox="0 0 101 30"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
