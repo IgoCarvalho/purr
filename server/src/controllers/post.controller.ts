@@ -1,6 +1,7 @@
 import { Prisma } from '@prisma/client';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { StatusCodes } from 'http-status-codes';
+import { env } from '../config/env';
 
 import * as appErrors from '../helpers/errors';
 import prisma from '../lib/prisma';
@@ -22,6 +23,10 @@ export async function createPost(
     const postData = req.body;
     const userData = req.user;
     const imagesLinks = req.files.map((file) => {
+      if (env.isProduction) {
+        return String(file.path);
+      }
+
       const link = `http://${req.hostname}/uploads/${file.filename}`;
 
       return link;
