@@ -11,7 +11,7 @@ import { CloudinaryStorageEngine } from '../lib/cloudinary';
 
 const diskStorage = fastifyMulter.diskStorage({
   async destination(req, file, cb) {
-    const storagePath = path.resolve('uploads');
+    const storagePath = path.join(__dirname, '..', '..', 'uploads');
 
     if (!existsSync(storagePath)) {
       mkdirSync(storagePath);
@@ -21,7 +21,12 @@ const diskStorage = fastifyMulter.diskStorage({
   },
   filename(req, file, cb) {
     const timeNow = new Date().getTime();
-    const fileName = `${timeNow}_${file.originalname}`;
+    const parsedOriginalName = file.originalname
+      .trim()
+      .replace(/ /g, '_')
+      .toLowerCase();
+
+    const fileName = `${timeNow}_${parsedOriginalName}`;
     cb(null, fileName);
   },
 });

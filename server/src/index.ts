@@ -1,8 +1,10 @@
 import Fastify from 'fastify';
+import cors from '@fastify/cors';
 import 'dotenv/config';
 
 import jwtAuth from './helpers/auth';
 import fileUpload from './helpers/upload';
+import staticFiles from './helpers/static';
 import appSchemas from './schemas';
 import { appRoutes } from './routes';
 import { env } from './config/env';
@@ -14,6 +16,10 @@ async function main() {
     server.get('/', () => {
       return { message: 'Hello World!', isProduction: env.isProduction };
     });
+
+    server.register(staticFiles);
+
+    server.register(cors, { origin: '*' });
 
     server.register(fileUpload);
 

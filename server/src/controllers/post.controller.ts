@@ -21,7 +21,11 @@ export async function createPost(
   try {
     const postData = req.body;
     const userData = req.user;
-    const imagesLinks = req.files.map((file) => String(file.path));
+    const imagesLinks = req.files.map((file) => {
+      const link = `http://${req.hostname}/uploads/${file.filename}`;
+
+      return link;
+    });
 
     const createImagesPrismaQuery: Prisma.ImageCreateManyPostInput[] =
       imagesLinks.map((link) => ({
@@ -86,6 +90,13 @@ export async function listPosts(
       orderBy: { createdAt: 'desc' },
       include: {
         images: true,
+        owner: {
+          select: {
+            id: true,
+            avatarUrl: true,
+            name: true,
+          },
+        },
       },
     });
 
