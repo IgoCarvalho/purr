@@ -11,7 +11,9 @@ import NavLinks from './NavLinks.vue';
     <div
       class="container mx-auto flex justify-between items-center sm:grid grid-cols-[1fr_auto_1fr]"
     >
-      <IconPurr class="text-yellow-300" />
+      <router-link to="/">
+        <IconPurr class="text-yellow-300" />
+      </router-link>
 
       <div class="hidden sm:block">
         <NavLinks />
