@@ -1,34 +1,36 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-
 import PostCard from '@/components/PostCard.vue';
-import axios from '@/lib/axios';
-import type { Post } from '@/interfaces/post';
+import FeedContainer from '@/components/FeedContainer.vue';
+import MyLoading from '@/components/MyLoading.vue';
 
-const posts = ref<Post[] | null>(null);
+import { usePostsStore } from '@/stores/posts';
 
-async function getPosts() {
-  try {
-    const response = await axios.get<Post[]>('posts/public');
+const postsStore = usePostsStore();
 
-    console.log(response.data);
+postsStore.getPosts();
 
-    posts.value = response.data;
-  } catch (err) {
-    console.log(err);
-  }
+function loadMorePosts() {
+  postsStore.getPosts();
 }
-getPosts();
 </script>
 
 <template>
-  <div class="max-w-3xl mx-auto py-5">
-    <div class="pb-5 border-b border-b-gray-800">
+  <div class="max-w-3xl mx-auto py-5 pb-20">
+    <div class="pb-5 px-3 border-b border-b-gray-800">
       <h1 class="text-2xl">Postagens recentes</h1>
     </div>
 
-    <div v-if="posts" class="max-w-lg mx-auto pt-10 flex flex-col gap-5">
-      <PostCard v-for="post in posts" :key="post.id" :post="post" />
+    <div class="max-w-lg mx-auto pt-10">
+      <template v-if="postsStore.posts">
+        <FeedContainer @load="loadMorePosts">
+          <PostCard
+            v-for="post in postsStore.posts"
+            :key="post.id"
+            :post="post"
+          />
+        </FeedContainer>
+      </template>
+      <MyLoading class="mt-4" v-if="postsStore.isLoading" />
     </div>
   </div>
 </template>

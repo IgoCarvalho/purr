@@ -25,17 +25,10 @@ const formattedDate = computed(() => {
 
   return date.toLocaleDateString('pt-BR');
 });
-
-function onSwiper() {
-  console.log('onSwiper');
-}
-function onSlideChange() {
-  console.log('onSlideChange');
-}
 </script>
 
 <template>
-  <div class="bg-gray-900 rounded border border-gray-800">
+  <div class="bg-gray-900 sm:rounded border border-gray-800">
     <div class="flex items-center gap-3 p-2">
       <img
         class="w-10 rounded-full border border-gray-800"
@@ -60,8 +53,6 @@ function onSlideChange() {
         navigation
         :pagination="{ clickable: true }"
         :scrollbar="{ draggable: true }"
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
       >
         <SwiperSlide v-for="image in post.images" :key="image.id">
           <img
