@@ -83,8 +83,15 @@ const formattedDate = computed(() => {
 <style>
 .post-images .swiper-button-next,
 .post-images .swiper-button-prev {
-  @apply text-purr-pink;
+  @apply text-purr-pink h-full top-0 mt-0 w-11 after:text-3xl;
 }
+.post-images .swiper-button-next {
+  @apply right-0 bg-gradient-to-l from-black/70 to-transparent after:content-['next'];
+}
+.post-images .swiper-button-prev {
+  @apply left-0 bg-gradient-to-r from-black/70 to-transparent after:content-['prev'];
+}
+
 .post-images .swiper-pagination {
   @apply flex items-center bg-black/40 p-2 left-1/2 -translate-x-1/2 w-auto rounded-full;
 }
