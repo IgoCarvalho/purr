@@ -1,27 +1,38 @@
 <script setup lang="ts">
-import IconPurr from '@/components/icons/IconPurr.vue';
+import MyBadge from '@/components/MyBadge.vue';
 import Button from '@/components/MyButton.vue';
+
+import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue';
 </script>
 
 <template>
   <main
-    class="h-screen container mx-auto py-8 px-6 grid sm:grid-cols-2 items-center gap-5 overflow-auto"
+    class="min-h-screen container mx-auto py-4 px-6 grid sm:grid-cols-2 items-center gap-5 overflow-auto"
   >
     <div>
-      <IconPurr class="text-yellow-200" :size="150" aria-label="Purr Icon" />
+      <MyBadge>
+        <template #title>Cuidado</template>
+        O site pode conter fotos suspeitas! 🤔
+      </MyBadge>
 
-      <h1 class="text-4xl leading-tight sm:text-5xl text-white font-bold mt-8">
-        Uma rede social feita para gatinhos! 😳
+      <h1 class="text-4xl leading-tight sm:text-5xl text-white font-bold mt-5">
+        Uma rede social feita <br />
+        para gatinhos! 😳
       </h1>
 
-      <p
-        class="bg-neutral-700 break-words inline-block border-neutral-500 border px-2 py-1 rounded-full text-white text-sm mt-5"
-      >
-        Cuidado o site pode conter fotos suspeitas! 🤔
+      <p class="mt-5 text-gray-400">
+        Aproveite para postar e acompanhar as mais <br />
+        diversas fotos e memes do mundo felino!
       </p>
 
-      <div class="mt-10 flex justify-center sm:justify-start">
+      <div
+        class="my-10 mt-20 flex flex-wrap justify-center gap-5 sm:justify-start"
+      >
         <Button> Entre e aproveite! </Button>
+        <Button as-link variant="link" to="/posts">
+          Veja oque já está acontecendo
+          <ArrowRightIcon />
+        </Button>
       </div>
     </div>
 

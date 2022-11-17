@@ -30,7 +30,7 @@ const buttonVariantsMap: Record<ButtonVariants, string> = {
   solid: 'bg-purr-gradient  bg-size-200% hover:bg-right ',
   outline:
     ' hover:bg-purr-pink hover:text-white outline outline-1 outline-purr-pink',
-  link: 'hover:text-purr-pink',
+  link: 'hover:text-purr-pink px-1',
 };
 
 const buttonSizeClasses = computed(() => buttonSizeMap[props.size]);
@@ -61,6 +61,6 @@ const buttonRoundedClasses = computed(() =>
 
 <style scoped>
 .button-base {
-  @apply block cursor-pointer text-sm text-white bg-transparent flex justify-center items-center gap-3 uppercase drop-shadow-purple active:translate-y-1 transition-all duration-300;
+  @apply cursor-pointer text-sm text-white bg-transparent flex justify-center items-center gap-3 uppercase drop-shadow-purple active:translate-y-1 transition-all duration-300;
 }
 </style>
