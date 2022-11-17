@@ -7,10 +7,18 @@ module.exports = {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       backgroundColor: {
-        'purr-900': '#070212',
+        'purr-dark': '#070212',
+        'purr-pink': '#f45f80',
       },
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'purr-gradient':
+          'linear-gradient(to right, #f45f80 0%, #d44d93  51%, #f45f80  100%)',
+      },
+      backgroundSize: {
+        'size-200%': '200% auto',
+      },
+      colors: {
+        'purr-pink': '#f45f80',
       },
       dropShadow: {
         purple: '0 25px 25px #6930c320',

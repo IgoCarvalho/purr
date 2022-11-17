@@ -1,12 +1,18 @@
-<script setup lang="ts">
-import Button from './MyButton.vue';
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <nav class="">
     <ul class="flex items-center gap-2">
-      <Button asLink size="sm" to="/"> Home </Button>
-      <Button asLink size="sm" to="posts"> Posts </Button>
+      <router-link class="py-2 px-3 font-semibold" to="/">Home</router-link>
+      <router-link class="py-2 px-3 font-semibold" to="/posts">
+        Posts
+      </router-link>
     </ul>
   </nav>
 </template>
+
+<style>
+.router-link-active {
+  @apply text-purr-pink;
+}
+</style>

@@ -10,7 +10,7 @@ import Button from '@/components/MyButton.vue';
     <div>
       <IconPurr class="text-yellow-200" :size="150" aria-label="Purr Icon" />
 
-      <h1 class="text-4xl sm:text-5xl text-white font-bold mt-8">
+      <h1 class="text-4xl leading-tight sm:text-5xl text-white font-bold mt-8">
         Uma rede social feita para gatinhos! 😳
       </h1>
 

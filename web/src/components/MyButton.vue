@@ -2,13 +2,14 @@
 import { computed } from 'vue';
 
 type ButtonSizes = 'sm' | 'md' | 'lg';
-type ButtonVariants = 'solid' | 'outline';
+type ButtonVariants = 'solid' | 'outline' | 'link';
 
 interface ButtonProps {
   asLink?: boolean;
   to?: string;
   size?: ButtonSizes;
   variant?: ButtonVariants;
+  rounded?: boolean;
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {
@@ -16,53 +17,50 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   to: '/',
   size: 'lg',
   variant: 'solid',
+  rounded: false,
 });
 
 const buttonSizeMap: Record<ButtonSizes, string> = {
-  lg: 'py-4 px-6',
-  md: 'py-3 px-5',
-  sm: 'py-2 px-4',
+  lg: 'py-4 px-6 font-bold',
+  md: 'py-3 px-5 font-semibold',
+  sm: 'py-2 px-4 font-semibold',
 };
 
 const buttonVariantsMap: Record<ButtonVariants, string> = {
-  solid: 'bg-violet-500 hover:bg-violet-600',
+  solid: 'bg-purr-gradient  bg-size-200% hover:bg-right ',
   outline:
-    'bg-violet-500/10 hover:bg-violet-500/30 outline outline-1 outline-violet-500',
+    ' hover:bg-purr-pink hover:text-white outline outline-1 outline-purr-pink',
+  link: 'hover:text-purr-pink',
 };
 
 const buttonSizeClasses = computed(() => buttonSizeMap[props.size]);
 const buttonVariantClasses = computed(() => buttonVariantsMap[props.variant]);
+const buttonRoundedClasses = computed(() =>
+  props.rounded ? 'rounded-full' : 'rounded'
+);
 </script>
 
 <template>
   <router-link
     v-if="asLink"
-    class="button link"
-    :class="[buttonSizeClasses]"
+    class="button-base"
+    :class="[buttonSizeClasses, buttonVariantClasses, buttonRoundedClasses]"
     :to="to"
-    active-class="active"
   >
     <slot></slot>
   </router-link>
 
   <button
     v-else
-    class="button"
-    :class="[buttonSizeClasses, buttonVariantClasses]"
+    class="button-base"
+    :class="[buttonSizeClasses, buttonVariantClasses, buttonRoundedClasses]"
   >
     <slot></slot>
   </button>
 </template>
 
 <style scoped>
-.button {
-  @apply block cursor-pointer rounded text-white text-sm font-bold drop-shadow-purple active:translate-y-1 transition;
-}
-
-.button.link {
-  @apply bg-transparent hover:bg-white/10;
-}
-.button.active {
-  @apply bg-white/20;
+.button-base {
+  @apply block cursor-pointer text-sm text-white bg-transparent flex justify-center items-center gap-3 uppercase drop-shadow-purple active:translate-y-1 transition-all duration-300;
 }
 </style>
