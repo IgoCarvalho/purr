@@ -2,7 +2,7 @@
 import MyBadge from '@/components/MyBadge.vue';
 import Button from '@/components/MyButton.vue';
 
-import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue';
+import ArrowRightIcon from '@/components/icons/ArrowRightIcon.vue';
 </script>
 
 <template>

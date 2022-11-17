@@ -4,9 +4,8 @@ import { computed } from 'vue';
 import type { Post } from '@/interfaces/post';
 import MyButton from './MyButton.vue';
 
-import HeartIcon from 'vue-material-design-icons/Heart.vue';
-import HeartOutlineIcon from 'vue-material-design-icons/HeartOutline.vue';
-import MessageIcon from 'vue-material-design-icons/Message.vue';
+import HeartIcon from './icons/HeartIcon.vue';
+import MessageIcon from './icons/MessageIcon.vue';
 
 import { Pagination, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
