@@ -28,7 +28,7 @@ import ArrowRightIcon from '@/components/icons/ArrowRightIcon.vue';
       <div
         class="my-10 mt-20 flex flex-wrap justify-center gap-5 sm:justify-start"
       >
-        <Button> Entre e aproveite! </Button>
+        <Button as-link to="/login"> Entre e aproveite! </Button>
         <Button as-link variant="link" to="/posts">
           Veja oque já está acontecendo
           <ArrowRightIcon />

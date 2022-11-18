@@ -20,7 +20,9 @@ import NavLinks from './NavLinks.vue';
       </div>
 
       <div class="flex justify-end">
-        <Button size="sm" variant="outline">Login / Entrar</Button>
+        <Button size="sm" variant="outline" as-link to="/login"
+          >Login / Entrar</Button
+        >
       </div>
     </div>
   </header>
