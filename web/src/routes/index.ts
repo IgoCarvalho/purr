@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
+
 import WelcomePageVue from '@/pages/WelcomePage.vue';
 import FeedPageVue from '@/pages/FeedPage.vue';
 import LoginPageVue from '@/pages/LoginPage.vue';
+import SignUpPageVue from '@/pages/SignUpPage.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -16,6 +18,10 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/login',
     component: LoginPageVue,
+  },
+  {
+    path: '/signup',
+    component: SignUpPageVue,
   },
 ];
 

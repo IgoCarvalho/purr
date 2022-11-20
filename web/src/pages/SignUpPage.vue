@@ -4,6 +4,7 @@ import MyInput from '@/components/MyInput.vue';
 import { ref } from 'vue';
 
 const credentials = ref({
+  userName: '',
   email: '',
   password: '',
 });
@@ -21,30 +22,29 @@ function handleSubmit() {
     >
       <div class="p-4 bg-purr-pink bg-size-200%">
         <h1 class="text-4xl text-white font-bold">
-          Bom te ver aqui <br />
-          de novo!
+          Crie sua conta e aproveite ao máximo!
         </h1>
         <p class="text-slate-100 mt-1">
-          Entre agora e aproveite ao máximo tudo o que temos pra você!
+          Novas pessoas são bem vindas aqui, aceite esse presente boas vindas!
         </p>
 
         <img
           class="w-4/5 mx-auto my-5 rounded-md outline outline-gray-900 outline-4 outline-offset-2"
-          src="@/assets/images/cat-looking.jpg"
-          alt="Cat looking for you"
+          src="@/assets/images/flower-cat.jpg"
+          alt="Cat holding a flower"
         />
 
         <router-link
           class="block text-sm p-4 rounded-md bg-black/20 border border-transparent hover:border-gray-700 hover:bg-black/30"
-          to="/signup"
+          to="/login"
         >
-          Ainda não possui conta? <br />
-          <span class="text-xl font-semibold">Crie sua conta agora!</span>
+          Já possui uma conta? <br />
+          <span class="text-xl font-semibold">Entre e aproveite!</span>
         </router-link>
       </div>
 
       <div class="px-10 flex flex-col justify-center items-center">
-        <h2 class="self-start text-2xl font-semibold">Login</h2>
+        <h2 class="self-start text-2xl font-semibold">Criar Conta</h2>
 
         <form
           class="w-full mt-6 flex flex-col gap-2"
@@ -52,6 +52,13 @@ function handleSubmit() {
         >
           <MyInput
             type="text"
+            label="Seu nome"
+            name="email"
+            placeholder="Seu Nome"
+            :value="credentials.userName"
+          />
+          <MyInput
+            type="email"
             label="E-mail"
             name="email"
             placeholder="seu@email.com"
@@ -65,7 +72,7 @@ function handleSubmit() {
             :value="credentials.password"
           />
 
-          <MyButton class="mt-4" size="md">Entrar</MyButton>
+          <MyButton class="mt-4" size="md">Cadastre-se</MyButton>
         </form>
       </div>
     </div>

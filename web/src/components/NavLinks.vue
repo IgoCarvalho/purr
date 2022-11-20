@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <nav class="">
+  <nav class="nav-links">
     <ul class="flex items-center gap-2">
       <router-link class="py-2 px-3 font-semibold" to="/">Home</router-link>
       <router-link class="py-2 px-3 font-semibold" to="/posts">
@@ -12,7 +12,7 @@
 </template>
 
 <style>
-.router-link-active {
+.nav-links .router-link-active {
   @apply text-purr-pink;
 }
 </style>
