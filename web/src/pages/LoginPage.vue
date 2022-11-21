@@ -9,7 +9,7 @@ const credentials = ref({
 });
 
 function handleSubmit() {
-  console.log('submitted');
+  console.log('submitted', credentials);
   // do something
 }
 </script>
@@ -51,18 +51,18 @@ function handleSubmit() {
           @submit.prevent="handleSubmit"
         >
           <MyInput
-            type="text"
+            type="email"
             label="E-mail"
             name="email"
             placeholder="seu@email.com"
-            :value="credentials.email"
+            v-model="credentials.email"
           />
           <MyInput
             type="password"
             label="Senha"
             name="password"
             placeholder="*********"
-            :value="credentials.password"
+            v-model="credentials.password"
           />
 
           <MyButton class="mt-4" size="md">Entrar</MyButton>

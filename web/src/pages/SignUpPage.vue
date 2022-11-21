@@ -10,7 +10,7 @@ const credentials = ref({
 });
 
 function handleSubmit() {
-  console.log('submitted');
+  console.log('submitted', credentials.value);
   // do something
 }
 </script>
@@ -55,21 +55,21 @@ function handleSubmit() {
             label="Seu nome"
             name="email"
             placeholder="Seu Nome"
-            :value="credentials.userName"
+            v-model="credentials.userName"
           />
           <MyInput
             type="email"
             label="E-mail"
             name="email"
             placeholder="seu@email.com"
-            :value="credentials.email"
+            v-model="credentials.email"
           />
           <MyInput
             type="password"
             label="Senha"
             name="password"
             placeholder="*********"
-            :value="credentials.password"
+            v-model="credentials.password"
           />
 
           <MyButton class="mt-4" size="md">Cadastre-se</MyButton>
