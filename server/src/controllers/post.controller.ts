@@ -9,6 +9,7 @@ import prisma from '../lib/prisma';
 import {
   CreatePostSchema,
   DeletePostParamsSchema,
+  LikePostParamsSchema,
   ListPostsQuerySchema,
   ListUniquePostParamsSchema,
 } from '../schemas/post.schema';
@@ -155,6 +156,31 @@ export async function deletePost(
     await prisma.post.delete({ where: { id } });
 
     return { id };
+  } catch (err) {
+    console.error(err);
+    return reply.code(StatusCodes.INTERNAL_SERVER_ERROR).send(err);
+  }
+}
+
+export async function likePost(
+  req: FastifyRequest<{
+    Params: LikePostParamsSchema;
+  }>,
+  reply: FastifyReply
+) {
+  try {
+    const { id } = req.params;
+
+    const postUpdated = await prisma.post.update({
+      where: { id },
+      data: {
+        likes: {
+          increment: 1,
+        },
+      },
+    });
+
+    return { postUpdated };
   } catch (err) {
     console.error(err);
     return reply.code(StatusCodes.INTERNAL_SERVER_ERROR).send(err);

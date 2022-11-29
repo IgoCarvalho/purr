@@ -55,4 +55,14 @@ export async function postRoutes(server: FastifyInstance) {
     preHandler: [server.authenticate],
     handler: postController.deletePost,
   });
+
+  server.route({
+    method: 'PATCH',
+    url: '/:id/like',
+    schema: {
+      params: $postSchemasRef('LikePostParamsSchema'),
+    },
+    preHandler: [server.authenticate],
+    handler: postController.likePost,
+  });
 }
