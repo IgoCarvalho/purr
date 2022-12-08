@@ -21,7 +21,7 @@ function loadMorePosts() {
     </div>
 
     <div class="max-w-lg mx-auto pt-10">
-      <template v-if="postsStore.posts">
+      <template v-if="postsStore.posts.length">
         <FeedContainer @load="loadMorePosts">
           <PostCard
             v-for="post in postsStore.posts"
@@ -30,6 +30,11 @@ function loadMorePosts() {
           />
         </FeedContainer>
       </template>
+
+      <template v-else-if="!postsStore.isLoading">
+        <p class="text-center text-lg">Nenhum post foi encontrado 😭</p>
+      </template>
+
       <MyLoading class="mt-4" v-if="postsStore.isLoading" />
     </div>
   </div>
