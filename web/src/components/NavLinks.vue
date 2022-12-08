@@ -3,10 +3,22 @@
 <template>
   <nav class="nav-links">
     <ul class="flex items-center gap-2">
-      <router-link class="py-2 px-3 font-semibold" to="/">Home</router-link>
-      <router-link class="py-2 px-3 font-semibold" to="/posts">
-        Posts
-      </router-link>
+      <li>
+        <router-link
+          class="py-2 px-3 font-semibold hover:text-purr-pink"
+          to="/"
+        >
+          Home
+        </router-link>
+      </li>
+      <li>
+        <router-link
+          class="py-2 px-3 font-semibold hover:text-purr-pink"
+          to="/posts"
+        >
+          Posts
+        </router-link>
+      </li>
     </ul>
   </nav>
 </template>

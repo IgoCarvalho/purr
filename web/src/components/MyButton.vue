@@ -61,6 +61,6 @@ const buttonRoundedClasses = computed(() =>
 
 <style scoped>
 .button-base {
-  @apply cursor-pointer text-sm text-white bg-transparent flex justify-center items-center gap-3 uppercase drop-shadow-purple active:translate-y-1 transition-all duration-300;
+  @apply cursor-pointer text-sm text-white bg-transparent flex justify-center items-center gap-3 uppercase hover:drop-shadow-purple active:translate-y-1 transition-all duration-300;
 }
 </style>
