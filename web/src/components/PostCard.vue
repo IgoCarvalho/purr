@@ -27,26 +27,8 @@ const formattedDate = computed(() => {
 </script>
 
 <template>
-  <div class="bg-gray-900 sm:rounded border border-gray-800">
-    <div class="flex items-center gap-3 p-2">
-      <img
-        class="w-10 rounded-full border border-gray-800"
-        :src="post.owner.avatarUrl || 'https://github.com/igocarvalho.png'"
-        alt="User Image"
-      />
-      <div>
-        <p class="text-white text-lg font-bold">{{ post.owner.name }}</p>
-        <span class="text-gray-400 text-sm">{{ formattedDate }}</span>
-      </div>
-    </div>
-
-    <div class="px-3">
-      <p>
-        {{ post.text }}
-      </p>
-    </div>
-
-    <div class="my-2 w-full bg-purr-dark post-images">
+  <div class="relative bg-gray-900 sm:rounded border border-gray-800">
+    <div class="w-full bg-purr-dark post-images">
       <Swiper
         :modules="swiperModules"
         navigation
@@ -67,15 +49,39 @@ const formattedDate = computed(() => {
       </Swiper>
     </div>
 
-    <div class="p-2 flex gap-3">
-      <MyButton size="sm" rounded variant="outline">
-        <HeartIcon />
-        Curtir
-      </MyButton>
-      <MyButton size="sm" rounded variant="outline">
-        <MessageIcon />
-        Comentários
-      </MyButton>
+    <div
+      class="absolute inset-0 z-10 flex items-end cursor-pointer p-1 opacity-0 hover:opacity-100 transition-opacity duration-300"
+    >
+      <div class="w-full bg-gray-800 rounded-md">
+        <div class="flex items-center gap-3 p-2">
+          <img
+            class="w-10 rounded-full border border-gray-800"
+            :src="post.owner.avatarUrl || 'https://github.com/igocarvalho.png'"
+            alt="User Image"
+          />
+          <div>
+            <p class="text-white text-lg font-bold">{{ post.owner.name }}</p>
+            <span class="text-gray-400 text-sm">{{ formattedDate }}</span>
+          </div>
+        </div>
+
+        <div class="px-3">
+          <p>
+            {{ post.text }}
+          </p>
+        </div>
+
+        <div class="p-2 flex gap-3">
+          <MyButton size="sm" rounded variant="outline">
+            <HeartIcon />
+            Curtir
+          </MyButton>
+          <MyButton size="sm" rounded variant="outline">
+            <MessageIcon />
+            Comentários
+          </MyButton>
+        </div>
+      </div>
     </div>
   </div>
 </template>

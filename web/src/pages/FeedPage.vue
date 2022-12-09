@@ -15,19 +15,21 @@ function loadMorePosts() {
 </script>
 
 <template>
-  <div class="max-w-3xl mx-auto py-5 pb-20">
+  <div class="max-w-7xl mx-auto py-5 pb-20">
     <div class="pb-5 px-3 border-b border-b-gray-800">
       <h1 class="text-2xl">Postagens recentes</h1>
     </div>
 
-    <div class="max-w-lg mx-auto pt-10">
+    <div class="max-w-7xl mx-auto pt-10">
       <template v-if="postsStore.posts.length">
         <FeedContainer @load="loadMorePosts">
-          <PostCard
-            v-for="post in postsStore.posts"
-            :key="post.id"
-            :post="post"
-          />
+          <div class="columns-3 gap-4 space-y-4">
+            <PostCard
+              v-for="post in postsStore.posts"
+              :key="post.id"
+              :post="post"
+            />
+          </div>
         </FeedContainer>
       </template>
 
