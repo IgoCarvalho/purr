@@ -27,8 +27,10 @@ const formattedDate = computed(() => {
 </script>
 
 <template>
-  <div class="relative bg-gray-900 sm:rounded border border-gray-800">
-    <div class="w-full bg-purr-dark post-images">
+  <div
+    class="p-3 relative hover:bg-gray-900 sm:rounded-xl border border-transparent hover:border-gray-800"
+  >
+    <div class="w-full bg-purr-dark rounded-xl overflow-hidden post-images">
       <Swiper
         :modules="swiperModules"
         navigation
@@ -49,11 +51,9 @@ const formattedDate = computed(() => {
       </Swiper>
     </div>
 
-    <div
-      class="absolute inset-0 z-10 flex items-end cursor-pointer p-1 opacity-0 hover:opacity-100 transition-opacity duration-300"
-    >
-      <div class="w-full bg-gray-800 rounded-md">
-        <div class="flex items-center gap-3 p-2">
+    <div class="flex items-end mt-2">
+      <div class="w-full">
+        <div class="flex items-center gap-3">
           <img
             class="w-10 rounded-full border border-gray-800"
             :src="post.owner.avatarUrl || 'https://github.com/igocarvalho.png'"
@@ -65,13 +65,13 @@ const formattedDate = computed(() => {
           </div>
         </div>
 
-        <div class="px-3">
+        <!-- <div class="px-3">
           <p>
             {{ post.text }}
           </p>
-        </div>
+        </div> -->
 
-        <div class="p-2 flex gap-3">
+        <!-- <div class="p-2 flex gap-3">
           <MyButton size="sm" rounded variant="outline">
             <HeartIcon />
             Curtir
@@ -80,7 +80,7 @@ const formattedDate = computed(() => {
             <MessageIcon />
             Comentários
           </MyButton>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

@@ -23,6 +23,9 @@ module.exports = {
       dropShadow: {
         purple: '0 25px 25px #6930c320',
       },
+      gridTemplateColumns: {
+        posts: 'repeat(auto-fit, minmax(300px, 1fr))',
+      },
     },
   },
   plugins: [],
