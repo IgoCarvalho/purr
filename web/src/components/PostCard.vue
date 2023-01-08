@@ -52,7 +52,7 @@ const formattedDate = computed(() => {
     </div>
 
     <div class="flex items-end mt-2">
-      <div class="w-full">
+      <div class="w-full flex justify-between">
         <div class="flex items-center gap-3">
           <img
             class="w-10 rounded-full border border-gray-800"
@@ -71,16 +71,14 @@ const formattedDate = computed(() => {
           </p>
         </div> -->
 
-        <!-- <div class="p-2 flex gap-3">
-          <MyButton size="sm" rounded variant="outline">
-            <HeartIcon />
-            Curtir
-          </MyButton>
-          <MyButton size="sm" rounded variant="outline">
+        <div class="p-2 flex gap-3">
+          <MyButton size="sm" rounded variant="link" icon>
             <MessageIcon />
-            Comentários
           </MyButton>
-        </div> -->
+          <MyButton size="sm" rounded variant="link" icon>
+            <HeartIcon />
+          </MyButton>
+        </div>
       </div>
     </div>
   </div>

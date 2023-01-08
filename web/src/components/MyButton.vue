@@ -10,6 +10,7 @@ interface ButtonProps {
   size?: ButtonSizes;
   variant?: ButtonVariants;
   rounded?: boolean;
+  icon?: boolean;
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {
@@ -18,6 +19,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   size: 'lg',
   variant: 'solid',
   rounded: false,
+  icon: false,
 });
 
 const buttonSizeMap: Record<ButtonSizes, string> = {
@@ -33,18 +35,30 @@ const buttonVariantsMap: Record<ButtonVariants, string> = {
   link: 'hover:text-purr-pink px-1',
 };
 
+const buttonIconMap: Record<ButtonSizes, string> = {
+  lg: 'px-4',
+  md: 'px-3',
+  sm: 'px-2',
+};
+
 const buttonSizeClasses = computed(() => buttonSizeMap[props.size]);
 const buttonVariantClasses = computed(() => buttonVariantsMap[props.variant]);
 const buttonRoundedClasses = computed(() =>
   props.rounded ? 'rounded-full' : 'rounded'
 );
+const buttonIconClasses = computed(() => buttonIconMap[props.size]);
 </script>
 
 <template>
   <router-link
     v-if="asLink"
     class="button-base"
-    :class="[buttonSizeClasses, buttonVariantClasses, buttonRoundedClasses]"
+    :class="[
+      buttonSizeClasses,
+      buttonVariantClasses,
+      buttonRoundedClasses,
+      { [buttonIconClasses]: icon },
+    ]"
     :to="to"
   >
     <slot></slot>
@@ -53,7 +67,12 @@ const buttonRoundedClasses = computed(() =>
   <button
     v-else
     class="button-base"
-    :class="[buttonSizeClasses, buttonVariantClasses, buttonRoundedClasses]"
+    :class="[
+      buttonSizeClasses,
+      buttonVariantClasses,
+      buttonRoundedClasses,
+      { [buttonIconClasses]: icon },
+    ]"
   >
     <slot></slot>
   </button>
