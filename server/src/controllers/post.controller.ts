@@ -14,7 +14,7 @@ import {
   ListUniquePostParamsSchema,
 } from '../schemas/post.schema';
 
-export async function createPost(
+export async function create(
   req: FastifyRequest<{
     Body: CreatePostSchema;
   }>,
@@ -64,7 +64,7 @@ export async function createPost(
   }
 }
 
-export async function listPosts(
+export async function list(
   req: FastifyRequest<{
     Querystring: ListPostsQuerySchema;
   }>,
@@ -113,7 +113,7 @@ export async function listPosts(
   }
 }
 
-export async function listUniquePost(
+export async function listUnique(
   req: FastifyRequest<{
     Params: ListUniquePostParamsSchema;
   }>,
@@ -127,6 +127,10 @@ export async function listUniquePost(
       include: { images: true, comments: true },
     });
 
+    if (!post) {
+      return reply.code(StatusCodes.NOT_FOUND).send(appErrors.PostNotExists);
+    }
+
     return post;
   } catch (err) {
     console.error(err);
@@ -134,7 +138,7 @@ export async function listUniquePost(
   }
 }
 
-export async function deletePost(
+export async function remove(
   req: FastifyRequest<{
     Params: DeletePostParamsSchema;
   }>,
@@ -162,7 +166,7 @@ export async function deletePost(
   }
 }
 
-export async function likePost(
+export async function addLike(
   req: FastifyRequest<{
     Params: LikePostParamsSchema;
   }>,

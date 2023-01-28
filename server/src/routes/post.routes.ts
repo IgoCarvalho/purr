@@ -15,7 +15,7 @@ export async function postRoutes(server: FastifyInstance) {
       },
     },
     preValidation: [server.authenticate, multerUploader.array('files')],
-    handler: postController.createPost,
+    handler: postController.create,
   });
 
   server.route({
@@ -25,7 +25,7 @@ export async function postRoutes(server: FastifyInstance) {
       querystring: $postSchemasRef('ListPostsQuerySchema'),
     },
     preHandler: [server.authenticate],
-    handler: postController.listPosts,
+    handler: postController.list,
   });
 
   server.route({
@@ -34,7 +34,7 @@ export async function postRoutes(server: FastifyInstance) {
     schema: {
       querystring: $postSchemasRef('ListPostsQuerySchema'),
     },
-    handler: postController.listPosts,
+    handler: postController.list,
   });
 
   server.route({
@@ -43,7 +43,7 @@ export async function postRoutes(server: FastifyInstance) {
     schema: {
       params: $postSchemasRef('ListUniquePostParamsSchema'),
     },
-    handler: postController.listUniquePost,
+    handler: postController.listUnique,
   });
 
   server.route({
@@ -53,7 +53,7 @@ export async function postRoutes(server: FastifyInstance) {
       params: $postSchemasRef('DeletePostParamsSchema'),
     },
     preHandler: [server.authenticate],
-    handler: postController.deletePost,
+    handler: postController.remove,
   });
 
   server.route({
@@ -63,6 +63,6 @@ export async function postRoutes(server: FastifyInstance) {
       params: $postSchemasRef('LikePostParamsSchema'),
     },
     preHandler: [server.authenticate],
-    handler: postController.likePost,
+    handler: postController.addLike,
   });
 }
