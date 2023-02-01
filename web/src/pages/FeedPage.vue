@@ -6,9 +6,18 @@ import MyLoading from '@/components/MyLoading.vue';
 
 import { usePostsStore } from '@/stores/posts';
 import type { Post } from '@/interfaces/post';
+import { useBreakPointsToDataMediaQuery } from '@/composables/useBreakPointsToDataMediaQuery';
 
 const postsStore = usePostsStore();
-const gridColumns = 4;
+const gridColumns = useBreakPointsToDataMediaQuery(
+  {
+    sm: 2,
+    md: 3,
+    lg: 4,
+    '2xl': 5,
+  },
+  1
+);
 
 postsStore.getPosts();
 
@@ -21,12 +30,12 @@ const postsColumns = computed(() => {
 
   let columnIndex = 0;
 
-  const postsColumnsContainer: Post[][] = new Array(gridColumns)
+  const postsColumnsContainer: Post[][] = new Array(gridColumns.value)
     .fill(null)
     .map(() => []);
 
   posts.forEach((post) => {
-    if (columnIndex >= gridColumns) {
+    if (columnIndex >= gridColumns.value!) {
       columnIndex = 0;
     }
     postsColumnsContainer[columnIndex].push(post);
@@ -47,7 +56,9 @@ const postsColumns = computed(() => {
     <div class="max-w-7xl mx-auto pt-10">
       <template v-if="postsStore.posts.length">
         <FeedContainer @load="loadMorePosts">
-          <div class="grid grid-cols-posts">
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5"
+          >
             <div
               class="flex flex-col"
               v-for="(col, colIndex) in postsColumns"
