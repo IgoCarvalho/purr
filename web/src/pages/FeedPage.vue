@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import PostCard from '@/components/PostCard.vue';
-import FeedContainer from '@/components/FeedContainer.vue';
+import { computed, ref } from 'vue';
+
 import MyLoading from '@/components/MyLoading.vue';
+import PostCard from '@/components/PostCard.vue';
+
+import { useBreakPointsToDataMediaQuery } from '@/composables/useBreakPointsToDataMediaQuery';
+import { useInfinityScroll } from '@/composables/useInfinityScroll';
 
 import { usePostsStore } from '@/stores/posts';
+
 import type { Post } from '@/interfaces/post';
-import { useBreakPointsToDataMediaQuery } from '@/composables/useBreakPointsToDataMediaQuery';
+
+const postsContainerRef = ref<HTMLElement | null>(null);
 
 const postsStore = usePostsStore();
 const gridColumns = useBreakPointsToDataMediaQuery(
@@ -21,9 +26,11 @@ const gridColumns = useBreakPointsToDataMediaQuery(
 
 postsStore.getPosts();
 
-function loadMorePosts() {
+useInfinityScroll(() => {
+  if (postsStore.isLoading || !postsStore.haveMorePosts) return;
+
   postsStore.getPosts();
-}
+}, postsContainerRef);
 
 const postsColumns = computed(() => {
   const posts = postsStore.posts;
@@ -55,19 +62,18 @@ const postsColumns = computed(() => {
 
     <div class="max-w-7xl mx-auto pt-10">
       <template v-if="postsStore.posts.length">
-        <FeedContainer @load="loadMorePosts">
+        <div
+          ref="postsContainerRef"
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5"
+        >
           <div
-            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5"
+            class="flex flex-col"
+            v-for="(col, colIndex) in postsColumns"
+            :key="colIndex"
           >
-            <div
-              class="flex flex-col"
-              v-for="(col, colIndex) in postsColumns"
-              :key="colIndex"
-            >
-              <PostCard v-for="post in col" :key="post.id" :post="post" />
-            </div>
+            <PostCard v-for="post in col" :key="post.id" :post="post" />
           </div>
-        </FeedContainer>
+        </div>
       </template>
 
       <template v-else-if="!postsStore.isLoading">
