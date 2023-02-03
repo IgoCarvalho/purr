@@ -45,9 +45,9 @@ export function useBreakPointsToDataMediaQuery<T>(
     }
   }
 
-  onMounted(() => {
-    checkMatchMedia();
+  checkMatchMedia();
 
+  onMounted(() => {
     window.addEventListener('resize', checkMatchMedia);
   });
 
