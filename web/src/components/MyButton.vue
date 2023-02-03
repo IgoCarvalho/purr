@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import CachedIcon from './icons/CachedIcon.vue';
 
 type ButtonSizes = 'sm' | 'md' | 'lg';
 type ButtonVariants = 'solid' | 'outline' | 'link';
@@ -11,6 +12,8 @@ interface ButtonProps {
   variant?: ButtonVariants;
   rounded?: boolean;
   icon?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {
@@ -20,6 +23,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   variant: 'solid',
   rounded: false,
   icon: false,
+  loading: false,
 });
 
 const buttonSizeMap: Record<ButtonSizes, string> = {
@@ -57,7 +61,7 @@ const buttonIconClasses = computed(() => buttonIconMap[props.size]);
       buttonSizeClasses,
       buttonVariantClasses,
       buttonRoundedClasses,
-      { [buttonIconClasses]: icon },
+      { [buttonIconClasses]: icon, 'disabled:opacity-70': disabled },
     ]"
     :to="to"
   >
@@ -71,15 +75,20 @@ const buttonIconClasses = computed(() => buttonIconMap[props.size]);
       buttonSizeClasses,
       buttonVariantClasses,
       buttonRoundedClasses,
-      { [buttonIconClasses]: icon },
+      { [buttonIconClasses]: icon, 'disabled:opacity-70': disabled },
     ]"
+    :disabled="loading || disabled"
   >
-    <slot></slot>
+    <template v-if="loading">
+      <p>Carregando...</p>
+      <CachedIcon class="animate-spin w-5 h-5" />
+    </template>
+    <slot v-else></slot>
   </button>
 </template>
 
 <style scoped>
 .button-base {
-  @apply cursor-pointer text-sm text-white bg-transparent flex justify-center items-center gap-3 uppercase hover:drop-shadow-purple active:translate-y-1 transition-all duration-300;
+  @apply cursor-pointer text-sm text-white flex justify-center items-center gap-3 uppercase hover:drop-shadow-purple active:translate-y-1 transition-all duration-300 disabled:cursor-not-allowed;
 }
 </style>
