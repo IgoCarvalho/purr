@@ -1,4 +1,9 @@
-import type { LoginCredentials, LoginResponse } from '@/interfaces/auth';
+import type {
+  LoginCredentials,
+  LoginResponse,
+  SignUpCredential,
+  SignUpResponse,
+} from '@/interfaces/auth';
 import axios from '@/lib/axios';
 
 export function getToken() {
@@ -9,15 +14,14 @@ export function setToken(token: string) {
   localStorage.setItem('_token', token);
 }
 
-export async function doLogin(credentials: LoginCredentials) {
-  try {
-    const response = await axios.post<LoginResponse>(
-      '/users/login',
-      credentials
-    );
+export async function login(credentials: LoginCredentials) {
+  const response = await axios.post<LoginResponse>('/users/login', credentials);
 
-    return response.data;
-  } catch (err) {
-    console.log(err);
-  }
+  return response.data;
+}
+
+export async function signUp(credentials: SignUpCredential) {
+  const response = await axios.post<SignUpResponse>('/users', credentials);
+
+  return response.data;
 }
