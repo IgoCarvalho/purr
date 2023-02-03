@@ -38,11 +38,19 @@ export const useAuthStore = defineStore('auth', () => {
     await authService.signUp(credentials);
   }
 
+  function logout() {
+    user.value = null;
+    isAuthenticated.value = false;
+
+    authService.clearToken();
+  }
+
   return {
     isAuthenticated,
     isLoading,
     login,
     signUp,
+    logout,
     user,
   };
 });

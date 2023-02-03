@@ -14,6 +14,10 @@ export function setToken(token: string) {
   localStorage.setItem('_token', token);
 }
 
+export function clearToken() {
+  localStorage.removeItem('_token');
+}
+
 export async function login(credentials: LoginCredentials) {
   const response = await axios.post<LoginResponse>('/users/login', credentials);
 
