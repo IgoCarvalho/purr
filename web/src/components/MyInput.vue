@@ -27,7 +27,7 @@ function updateValeu(e: Event) {
       :name="name"
       :value="modelValue"
       :placeholder="placeholder"
-      class="bg-gray-900 border border-gray-800 px-3 py-2 rounded-md block w-full hover:border-gray-700 focus:border-purr-pink focus:outline-purr-pink/30 focus:outline"
+      class="bg-gray-800 border border-gray-700 px-3 py-2 rounded-md block w-full hover:border-gray-600 focus:border-purr-pink focus:outline-purr-pink/30 focus:outline"
       @input="updateValeu"
     />
   </div>
