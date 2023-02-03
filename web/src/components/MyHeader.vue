@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+
+import { useAuthStore } from '@/stores/auth';
+
 import IconPurr from './icons/IconPurr.vue';
+import PlusIcon from './icons/PlusIcon.vue';
 import SignOutIcon from './icons/SignOutIcon.vue';
 import MyButton from './MyButton.vue';
 import NavLinks from './NavLinks.vue';
 import UserImage from './UserImage.vue';
-
-import { useAuthStore } from '@/stores/auth';
-import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -33,8 +35,13 @@ function handleLogout() {
         <NavLinks />
       </div>
 
-      <div class="flex justify-end">
+      <div class="flex items-center justify-end gap-4">
         <template v-if="authStore.isAuthenticated">
+          <MyButton size="sm" variant="outline" asLink to="/new">
+            <PlusIcon class="w-5 h-5" />
+            Novo post
+          </MyButton>
+
           <div
             class="group flex items-center gap-2 rounded py-1 px-3 cursor-pointer hover:bgs-gray-800"
           >

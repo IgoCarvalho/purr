@@ -25,6 +25,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         posts: 'repeat(auto-fit, minmax(300px, 1fr))',
+        'image-preview': 'repeat(auto-fit, minmax(200px, 1fr))',
       },
     },
   },
