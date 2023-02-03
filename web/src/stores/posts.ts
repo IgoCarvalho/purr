@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-import axios from '@/lib/axios';
 import type { Post } from '@/interfaces/post';
 
+import * as postsService from '@/services/posts';
+
 export const usePostsStore = defineStore('posts', () => {
-  const isLoading = ref(true);
+  const isLoading = ref(false);
   const haveMorePosts = ref(true);
   const postsPage = ref(0);
   const postsPerPage = 10;
@@ -15,19 +16,37 @@ export const usePostsStore = defineStore('posts', () => {
     try {
       isLoading.value = true;
 
-      const response = await axios.get<Post[]>(
-        `posts/public?page=${postsPage.value}`
-      );
+      const postsResponse = await postsService.list(postsPage.value);
 
-      if (response.data.length < postsPerPage) {
+      if (postsResponse.length < postsPerPage) {
         haveMorePosts.value = false;
       }
 
       postsPage.value += 1;
 
-      posts.value = [...posts.value, ...response.data];
+      posts.value = [...posts.value, ...postsResponse];
     } catch (err) {
       console.log(err);
+
+      throw err;
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  async function create(postData: FormData) {
+    try {
+      isLoading.value = true;
+
+      const createdPost = await postsService.create(postData);
+
+      console.log({ createdPost });
+
+      posts.value.unshift(createdPost);
+    } catch (err) {
+      console.log(err);
+
+      throw err;
     } finally {
       isLoading.value = false;
     }
@@ -36,7 +55,8 @@ export const usePostsStore = defineStore('posts', () => {
   return {
     isLoading,
     posts,
-    getPosts,
     haveMorePosts,
+    getPosts,
+    create,
   };
 });
