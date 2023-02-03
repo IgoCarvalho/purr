@@ -19,3 +19,5 @@ export interface Image {
   altText: string;
   postId: string;
 }
+
+export type PostResponse = Omit<Post, 'ownerId' | 'owner'>;

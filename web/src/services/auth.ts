@@ -18,6 +18,12 @@ export function clearToken() {
   localStorage.removeItem('_token');
 }
 
+export function getBearerToke() {
+  const token = getToken();
+
+  return `Bearer ${token}`;
+}
+
 export async function login(credentials: LoginCredentials) {
   const response = await axios.post<LoginResponse>('/users/login', credentials);
 
