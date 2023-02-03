@@ -1,7 +1,21 @@
 <script setup lang="ts">
 import IconPurr from './icons/IconPurr.vue';
-import Button from './MyButton.vue';
+import SignOutIcon from './icons/SignOutIcon.vue';
+import MyButton from './MyButton.vue';
 import NavLinks from './NavLinks.vue';
+import UserImage from './UserImage.vue';
+
+import { useAuthStore } from '@/stores/auth';
+import { useRouter } from 'vue-router';
+
+const authStore = useAuthStore();
+const router = useRouter();
+
+function handleLogout() {
+  authStore.logout();
+
+  router.push('/');
+}
 </script>
 
 <template>
@@ -20,9 +34,39 @@ import NavLinks from './NavLinks.vue';
       </div>
 
       <div class="flex justify-end">
-        <Button size="sm" variant="outline" as-link to="/login"
-          >Login / Entrar</Button
-        >
+        <template v-if="authStore.isAuthenticated">
+          <div
+            class="group flex items-center gap-2 rounded py-1 px-3 cursor-pointer hover:bgs-gray-800"
+          >
+            <span class="font-semibold">{{ authStore.user?.name }}</span>
+
+            <div
+              class="bg-gray-800 border border-gray-700 p-2 rounded-full group-hover:border-gray-600"
+            >
+              <UserImage
+                class="h-6 w-6"
+                :src="authStore.user?.avatarUrl"
+                :alt="`${authStore.user?.name} image`"
+              />
+            </div>
+
+            <MyButton
+              @click="handleLogout"
+              icon
+              size="sm"
+              variant="link"
+              title="Sair"
+            >
+              <SignOutIcon class="w-5 h-5" />
+            </MyButton>
+          </div>
+        </template>
+
+        <template v-else>
+          <MyButton size="sm" variant="outline" as-link to="/login">
+            Login / Entrar
+          </MyButton>
+        </template>
       </div>
     </div>
   </header>
