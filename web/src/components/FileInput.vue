@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import PlusIcon from './icons/PlusIcon.vue';
+
 interface FileInputEmits {
   (event: 'file', data: string, file: File): void;
 }
@@ -20,7 +22,11 @@ function handleFileChanges(e: Event) {
   const input = e.target as HTMLInputElement;
 
   if (input.files) {
-    Array.from(input.files).forEach((file) => {
+    Array.from(input.files).forEach((file, index) => {
+      if (props.max && index >= props.max) {
+        return;
+      }
+
       const fileReader = new FileReader();
 
       fileReader.readAsDataURL(file);
@@ -46,13 +52,14 @@ const isDisabled = computed(() => {
 
 <template>
   <label
-    class="cursor-pointer text-sm text-white bg-transparent flex justify-center items-center gap-3 hover:drop-shadow-purple bg-gray-800 hover:bg-gray-700 border border-gray-700 py-2 px-4 font-semibold rounded"
+    class="cursor-pointer text-sm text-white bg-transparent flex justify-center items-center gap-2 hover:drop-shadow-purple bg-gray-800 hover:bg-gray-700 border border-gray-700 py-2 pl-3 pr-4 font-semibold rounded"
     :class="{
       'cursor-not-allowed opacity-70 hover:drop-shadow-none hover:bg-gray-800':
         isDisabled,
     }"
     :for="`${name}-file`"
   >
+    <PlusIcon class="w-5 h-5" />
     Adicionar Arquivo
   </label>
   <input
