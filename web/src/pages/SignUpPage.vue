@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import axios from 'axios';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
 
+import EnvelopIcon from '@/components/icons/EnvelopIcon.vue';
+import LockIcon from '@/components/icons/LockIcon.vue';
+import UserIcon from '@/components/icons/UserIcon.vue';
 import MyButton from '@/components/MyButton.vue';
 import MyInput from '@/components/MyInput.vue';
 
@@ -116,6 +119,7 @@ function validateForm() {
             name="name"
             placeholder="Seu Nome"
             v-model="credentials.name"
+            :leftIcon="UserIcon"
           />
           <MyInput
             type="email"
@@ -123,6 +127,7 @@ function validateForm() {
             name="email"
             placeholder="seu@email.com"
             v-model="credentials.email"
+            :leftIcon="EnvelopIcon"
           />
           <MyInput
             type="password"
@@ -130,6 +135,7 @@ function validateForm() {
             name="password"
             placeholder="*********"
             v-model="credentials.password"
+            :leftIcon="LockIcon"
           />
 
           <MyButton :loading="isLoading" class="mt-4" size="md">
