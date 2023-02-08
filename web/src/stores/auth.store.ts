@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 
 import type { User } from '@/interfaces/user';
 import type { LoginCredentials, SignUpCredential } from '@/interfaces/auth';
-import * as authService from '@/services/auth';
+import * as authService from '@/services/auth.service';
 
 export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = ref(false);

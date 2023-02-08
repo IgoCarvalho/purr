@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { usePostsStore } from '@/stores/posts';
+import { usePostsStore } from '@/stores/posts.store';
 
 import FileInput from '@/components/FileInput.vue';
 import ImagePreview from '@/components/ImagePreview.vue';

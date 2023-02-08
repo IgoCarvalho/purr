@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 import type { Post } from '@/interfaces/post';
 
-import * as postsService from '@/services/posts';
+import * as postsService from '@/services/posts.service';
 
 export const usePostsStore = defineStore('posts', () => {
   const isLoading = ref(false);

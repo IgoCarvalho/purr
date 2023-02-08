@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from '@/stores/auth.store';
 
 import IconPurr from './icons/IconPurr.vue';
 import PlusIcon from './icons/PlusIcon.vue';

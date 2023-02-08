@@ -7,7 +7,7 @@ import PostCard from '@/components/PostCard.vue';
 import { useBreakPointsToDataMediaQuery } from '@/composables/useBreakPointsToDataMediaQuery';
 import { useInfinityScroll } from '@/composables/useInfinityScroll';
 
-import { usePostsStore } from '@/stores/posts';
+import { usePostsStore } from '@/stores/posts.store';
 
 import type { Post } from '@/interfaces/post';
 

@@ -1,7 +1,7 @@
 import type { Post, PostResponse } from '@/interfaces/post';
 import axios from '@/lib/axios';
-import { useAuthStore } from '@/stores/auth';
-import { getBearerToke } from './auth';
+import { useAuthStore } from '@/stores/auth.store';
+import { getBearerToke } from './auth.service';
 
 function withOwnerData(post: PostResponse) {
   const authStore = useAuthStore();

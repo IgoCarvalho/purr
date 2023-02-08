@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from '@/stores/auth.store';
 
 import EnvelopIcon from '@/components/icons/EnvelopIcon.vue';
 import LockIcon from '@/components/icons/LockIcon.vue';
